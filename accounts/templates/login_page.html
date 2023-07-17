@@ -1,0 +1,17 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+<div class="container main mt-4">
+    <div class="card border-dark my-3" style="background-color: #e3f2fd;">
+        <div class="card-body bg-transparent">
+            <p> {{ message }} </p>
+
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit"> Log in </button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
