@@ -2,16 +2,26 @@
 
 {% block content %}
 <div class="container main mt-4">
-    <div class="card border-dark my-3" style="background-color: #e3f2fd;">
+  <div class="row">
+    <div class="col-md-5">
+      <div class="card border-dark my-3" style="background-color: #e3f2fd;">
         <div class="card-body bg-transparent">
-            <p> {{ message }} </p>
+          <h4 class="card-subtitle text-center"> Log in: </h4>
+          <p class="p-message"> {{ message }} </p>
 
-            <form method="post">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit"> Log in </button>
-            </form>
+          <form method="post">
+            <div class="login-inputs">
+              {% csrf_token %}
+              {% for field in form %}
+                {{ field.label_tag }}
+                {{ field }}
+              {% endfor %}
+            </div>
+          <button type="submit" class="btn btn-primary"> Log in </button>
+          </form>
         </div>
+      </div>
     </div>
+  </div>
 </div>
 {% endblock %}
