@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, logout, authenticate
 from django.shortcuts import redirect, render
 
 from .forms import SignupForm, LoginForm
@@ -41,3 +41,8 @@ def login_page_view(request):
                 message = 'Login failed! Please try again or register.'
 
     return render(request, 'login_page.html', context={'form': form, 'message': message})
+
+
+def logout_page_view(request):
+    logout(request)
+    return redirect('accounts:login')
