@@ -36,6 +36,7 @@ def login_page_view(request):
             if user is not None:
                 login(request, user)
                 message = f" Hey there {user.username}! You have been logged in."
+                return redirect('review:review_page')
 
             else:
                 message = 'Login failed! Please try again or register.'

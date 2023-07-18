@@ -5,7 +5,7 @@
     padding-top: 40px;
 }
 
-/*  -- login_page --  */
+/*  -- login_page | register_page --  */
 /*  */
 .p-message {
     margin-top: 1rem;
@@ -19,5 +19,14 @@
 
 .margin-btn {
     margin-top: 20px;
+}
+
+/*  ----  review_page ----   */
+/*  -- Feeds headline and buttons  --  */
+.headline_feed {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 10px;
+    width: 100%;
 }
 
