@@ -3,6 +3,15 @@
 {% block content %}
 <div class="container main mt-4">
   <div class="row">
+    <div class="col-md-4">
+      <div class="card border-dark my-3" style="background-color: #e3f2fd;">
+        <div class="card-body bg-transparent text-center">
+          <h4 class="card-subtitle"> Register now: </h4>
+          <a class="btn btn-primary margin-btn" href="{% url 'accounts:register' %}" role="button"> Sign up </a>
+        </div>
+      </div>
+    </div>
+
     <div class="col-md-5">
       <div class="card border-dark my-3" style="background-color: #e3f2fd;">
         <div class="card-body bg-transparent">
@@ -17,7 +26,7 @@
                 {{ field }}
               {% endfor %}
             </div>
-          <button type="submit" class="btn btn-primary"> Log in </button>
+          <button type="submit" class="btn btn-primary margin-btn"> Log in </button>
           </form>
         </div>
       </div>
