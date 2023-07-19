@@ -9,7 +9,13 @@ from .models import Ticket, Review
 def review_page_view(request):
     reviews = Review.objects.all()
     tickets = Ticket.objects.all()
+    stars = range(1, 6)
 
-    context = {'reviews': reviews, 'tickets': tickets, 'media_url': settings.MEDIA_URL}
+    context = {
+        'reviews': reviews,
+        'tickets': tickets,
+        'stars': stars,
+        'media_url': settings.MEDIA_URL
+    }
 
     return render(request, 'review_page.html', context)

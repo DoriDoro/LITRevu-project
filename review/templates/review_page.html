@@ -14,16 +14,35 @@
       <div class="container mt-3">
         <div class="card border-dark my-3 w-80" style="background-color: #e3f2fd;">
           <div class="card-body">
-            <p> Name: {{ review.user }} </p>
-            <p> date, time: {{ review.time_created }} </p>
-            <p> {{ review.headline }} - {{ review.rating }} stars </p>
+            <p> posted by <strong>{{ review.user }}</strong> <small style="float: right;"> {{ review.time_created }} </small> </p>
+            <hr>
+
+
+
+            <p> {{ review.headline }} - {% for i in stars %}
+              {% if i <= review.rating %}
+                <i class="fa fa-star" style="color: #f6d32d;"></i>
+              {% else %}
+                <i class="fa fa-star" style="color: lightgrey;"></i>
+              {% endif %}
+            {% endfor %}
+            stars </p>
             <p> {{ review.body }} </p>
             <div class="card border-dark bg-light">
               <div class="card-body">
-                <p> User: {{ review.ticket.user }} </p>
-                <p> {{ review.ticket.title }} </p>
-                <p> {{ review.ticket.description }} </p>
-                <img src="{{ media_url }}{{ review.ticket.image }}" alt="{{ review.ticket.title }}">
+                <p> posted by <strong>{{ review.ticket.user }}</strong> <small style="float: right;"> {{ review.ticket.time_created }} </small> </p>
+                <hr>
+                <div style="display: flex;">
+                  <img src="{{ media_url }}{{ review.ticket.image }}" alt="{{ review.ticket.title }}" style="border: solid black 1px;">
+                  <div style="margin-left: 30px;">
+                    <div style="margin-bottom: 15px;">
+                      <h4> {{ review.ticket.title }} </h4>
+                    </div>
+                    <div>
+                      <p> {{ review.ticket.description }} </p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -35,11 +54,14 @@
       <div class="container mt-3">
         <div class="card border-dark my-3 w-80" style="background-color: #e3f2fd;">
           <div class="card-body">
-            <h6 class="card-subtitle mb-2 text-muted"> {{ ticket.title }} </h6>
-            <p> date, time: {{ ticket.time_created }} </p>
+            <p> posted by <strong>{{ ticket.user }}</strong> <small style="float: right;"> {{ ticket.time_created }} </small> </p>
+            <hr>
+            <h4> {{ ticket.title }} </h4>
             <p class="card-text"> {{ ticket.description }} </p>
-            <img src="{{ media_url }}{{ ticket.image }}" alt="{{ ticket.title }}">
-            <a class="btn btn-primary" href="#" role="button">Create a review</a>
+            <img src="{{ media_url }}{{ ticket.image }}" alt="{{ ticket.title }}" style="border: solid black 1px;">
+            <div>
+              <a class="btn btn-primary" href="#" role="button" style="margin-top: 20px;">Create a review</a>
+            </div>
           </div>
         </div>
       </div>
