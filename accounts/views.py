@@ -22,7 +22,6 @@ def signup_page_view(request):
 
 def login_page_view(request):
     form = LoginForm()
-    message = ''
 
     if request.method == 'POST':
         form = LoginForm(request.POST)
@@ -35,13 +34,9 @@ def login_page_view(request):
 
             if user is not None:
                 login(request, user)
-                message = f" Hey there {user.username}! You have been logged in."
                 return redirect('review:review_page')
 
-            else:
-                message = 'Login failed! Please try again or register.'
-
-    return render(request, 'login_page.html', context={'form': form, 'message': message})
+    return render(request, 'login_page.html', context={'form': form})
 
 
 def logout_page_view(request):
