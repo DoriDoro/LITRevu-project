@@ -25,14 +25,14 @@
                    <i class="fa fa-star" style="color: lightgrey;"></i>
                  {% endif %}
                {% endfor %}
-             stars </p>
+             </p>
             <p> {{ review.body }} </p>
             <div class="card border-dark bg-light">
               <div class="card-body">
                 <p> posted by <strong>{{ review.ticket.user }}</strong> <small style="float: right;"> {{ review.ticket.time_created }} </small> </p>
                 <hr>
                 <div style="display: flex;">
-                  <img src="{{ media_url }}{{ review.ticket.image }}" alt="{{ review.ticket.title }}" style="border: solid black 1px;">
+                  <img src="{{ media_url }}{{ review.ticket.image }}" alt="{{ review.ticket.title }}" style="border: solid black 1px; border-radius: 3px;">
                   <div style="margin-left: 30px;">
                     <div style="margin-bottom: 15px;">
                       <h4> {{ review.ticket.title }} </h4>
@@ -55,12 +55,18 @@
           <div class="card-body">
             <p> posted by <strong>{{ ticket.user }}</strong> <small style="float: right;"> {{ ticket.time_created }} </small> </p>
             <hr>
-            <h4> {{ ticket.title }} </h4>
-            <p class="card-text"> {{ ticket.description }} </p>
-            <img src="{{ media_url }}{{ ticket.image }}" alt="{{ ticket.title }}" style="border: solid black 1px;">
-            <div>
-              <a class="btn btn-primary" href="#" role="button" style="margin-top: 20px;">Create a review</a>
+            <div style="display: flex;">
+              <img src="{{ media_url }}{{ ticket.image }}" alt="{{ ticket.title }}" style="border: solid black 1px; border-radius: 3px;">
+              <div style="margin-left: 30px;">
+                <div style="margin-bottom: 15px;">
+                  <h4> {{ ticket.title }} </h4>
+                </div>
+                <div>
+                  <p class="card-text"> {{ ticket.description }} </p>
+                </div>
+              </div>
             </div>
+              <a class="btn btn-primary" href="#" role="button" style="margin-top: 20px;">Create a review</a>
           </div>
         </div>
       </div>
