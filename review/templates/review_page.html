@@ -38,7 +38,7 @@
             <h6 class="card-subtitle mb-2 text-muted"> {{ ticket.title }} </h6>
             <p> date, time: {{ ticket.time_created }} </p>
             <p class="card-text"> {{ ticket.description }} </p>
-            <p> Image </p>
+            <img src="{{ media_url }}{{ ticket.image }}" alt="{{ ticket.title }}">
             <a class="btn btn-primary" href="#" role="button">Create a review</a>
           </div>
         </div>
