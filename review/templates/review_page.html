@@ -16,15 +16,16 @@
           <div class="card-body">
             <p> posted by <strong>{{ review.user }}</strong> <small style="float: right;"> {{ review.time_created }} </small> </p>
             <hr>
-            <p> {{ review.headline }} -
-              {% for i in stars %}
-                {% if i <= review.rating %}
-                  <i class="fa fa-star" style="color: #f6d32d;"></i>
-                {% else %}
-                  <i class="fa fa-star" style="color: lightgrey;"></i>
-                {% endif %}
-              {% endfor %}
-            stars </p>
+            <h4> {{ review.headline }} </h4>
+             <p>
+               {% for i in stars %}
+                 {% if i <= review.rating %}
+                   <i class="fa fa-star" style="color: #f6d32d;"></i>
+                 {% else %}
+                   <i class="fa fa-star" style="color: lightgrey;"></i>
+                 {% endif %}
+               {% endfor %}
+             stars </p>
             <p> {{ review.body }} </p>
             <div class="card border-dark bg-light">
               <div class="card-body">
