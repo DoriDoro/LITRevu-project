@@ -34,7 +34,7 @@ def login_page_view(request):
 
             if user is not None:
                 login(request, user)
-                return redirect('review:review_page')
+                return redirect('review:feeds_page')
 
     return render(request, 'login_page.html', context={'form': form})
 

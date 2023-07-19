@@ -3,7 +3,7 @@ from django import forms
 from .models import Ticket, Review
 
 
-class CreateTicketForm(forms.ModelForm):
+class AskReviewForm(forms.ModelForm):
 
     class Meta:
         model = Ticket
