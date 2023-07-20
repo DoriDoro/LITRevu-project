@@ -38,7 +38,12 @@ class Ticket(models.Model):
 class Review(models.Model):
     """ A Review has a rating and a ticket. """
 
-    ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE, verbose_name=_("ticket"))
+    ticket = models.ForeignKey(
+        Ticket,
+        on_delete=models.CASCADE,
+        related_name="reviews",
+        verbose_name=_("ticket")
+    )
     rating = models.PositiveSmallIntegerField(
         # validates that rating must be between 0 and 5
         validators=[MinValueValidator(0), MaxValueValidator(5)],
@@ -54,5 +59,5 @@ class Review(models.Model):
     time_created = models.DateTimeField(auto_now_add=True, verbose_name=_("review created at"))
 
     def __str__(self):
-        return str(self.headline)
+        return f"{self.headline}, {self.ticket}"
 

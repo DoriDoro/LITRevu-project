@@ -7,10 +7,12 @@ from .forms import AskReviewForm, CreateReviewForm
 from .models import Ticket, Review
 
 
+# TODO: images are not responsive
 @login_required
 def feeds_page_view(request):
     reviews = Review.objects.all()
-    tickets = Ticket.objects.all()
+    tickets = Ticket.objects.filter(reviews__isnull=True)
+
     stars = range(1, 6)
 
     context = {
