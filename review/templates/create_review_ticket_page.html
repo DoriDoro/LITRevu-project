@@ -1,0 +1,39 @@
+{% extends 'base_layout.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<!-- create review for ticket page -->
+<div class="container main mt-4">
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-7">
+      <div class="card border-dark my-3" style="background-color: #e3f2fd;">
+        <div class="card-body bg-transparent ">
+          <h4 class="card-subtitle text-center py-2"> Create a review: </h4>
+          <form method="post">
+            {% csrf_token %}
+              <p> posted by <strong>{{ get_ticket.user }}</strong> <small style="float: right;"> {{ get_ticket.time_created }} </small> </p>
+              <hr>
+              <div style="display: flex;">
+                <img src="{{ media_url }}{{ get_ticket.image }}" alt="{{ get_ticket_title }}" style="border: solid black 1px; border-radius: 3px;">
+                <div style="margin-left: 30px;">
+                  <div style="margin-bottom: 15px;">
+                    <h4> {{ get_ticket.title }} </h4>
+                    <p> {{ get_ticket.description }} </p>
+                  </div>
+                </div>
+              </div>
+              <hr>
+              {{ create_review_ticket_form|crispy }}
+            <div style="display: flex; justify-content: space-between;">
+              <button type="submit" class="btn btn-primary margin-btn"> Create this review </button>
+              <a href="{% url 'review:feeds_page' %}" role="button" class="btn btn-secondary margin-btn"> Cancel </a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End of create review for ticket page -->
+{% endblock %}

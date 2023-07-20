@@ -21,7 +21,7 @@
            <p>
              {% for i in stars %}
                {% if i <= review.rating %}
-                 <i class="fa fa-star" style="color: #f6d32d;"></i>
+                 <i class="fa fa-star" style="color: darkblue;"></i>
                {% else %}
                  <i class="fa fa-star" style="color: lightgrey;"></i>
                {% endif %}
@@ -67,7 +67,7 @@
               </div>
             </div>
           </div>
-            <a class="btn btn-primary" href="#" role="button" style="margin-top: 20px;">Create a review</a>
+            <a class="btn btn-primary" href="{% url 'review:create_review_ticket' pk=ticket.id %}" role="button" style="margin-top: 20px;">Create a review</a>
         </div>
       </div>
     </div>
