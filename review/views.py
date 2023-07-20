@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.urls import reverse
 
-from .forms import AskReviewForm
+from .forms import AskReviewForm, CreateReviewForm
 from .models import Ticket, Review
 
 
@@ -23,6 +23,7 @@ def feeds_page_view(request):
     return render(request, 'feeds_page.html', context)
 
 
+# TODO create error messages for else
 @login_required
 def ask_review_view(request):
     form = AskReviewForm
@@ -39,3 +40,34 @@ def ask_review_view(request):
             return redirect(feeds_page_url)
 
     return render(request, 'ask_review_page.html', context={'form': form})
+
+
+# TODO create error messages for else
+@login_required
+def create_review_view(request):
+    ask_review_form = AskReviewForm
+    create_review_form = CreateReviewForm
+
+    if request.method == 'POST':
+        ask_review_form = AskReviewForm(request.POST, request.FILES)
+        create_review_form = CreateReviewForm(request.POST)
+
+        if ask_review_form.is_valid() and create_review_form.is_valid():
+            ask_review = ask_review_form.save(commit=False)
+            create_review = create_review_form.save(commit=False)
+
+            ask_review.user = request.user
+
+            create_review.ticket = ask_review
+            create_review.user = request.user
+
+            ask_review_form.save()
+            create_review_form.save()
+
+            feeds_page_url = reverse('review:feeds_page')
+            return redirect(feeds_page_url)
+
+    context = {'ask_review_form': ask_review_form, 'create_review_form': create_review_form}
+
+    return render(request, 'create_review_page.html', context)
+
