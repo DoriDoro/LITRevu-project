@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
 from django.shortcuts import redirect, render
 
@@ -35,6 +36,9 @@ def login_page_view(request):
             if user is not None:
                 login(request, user)
                 return redirect('review:feeds_page')
+
+            else:
+                messages.error(request, "Invalid username or password!")
 
     return render(request, 'login_page.html', context={'form': form})
 

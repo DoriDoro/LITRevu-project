@@ -13,7 +13,7 @@
                 {{form|crispy}}
               <div style="display: flex; justify-content: space-between;">
                 <button type="submit" class="btn btn-primary margin-btn"> Register </button>
-                <button type="submit" class="btn btn-secondary margin-btn"> Cancel </button>
+                <a href="{% url 'accounts:login' %}" role="button" class="btn btn-secondary margin-btn"> Cancel </a>
               </div>
           </form>
         </div>
