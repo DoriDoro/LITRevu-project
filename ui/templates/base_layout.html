@@ -1,61 +1,61 @@
 {% load static %}
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>LITRevu</title>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LITRevu</title>
 
-        <!-- bootstrap cdn -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <!-- bootstrap cdn -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 
-        <!-- font-awesome cdn -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- font-awesome cdn -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-        <!-- custom css files -->
-        <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}"/>
+    <!-- custom css files -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}"/>
 
-    </head>
-    <body>
-      <!-- Navbar -->
-      <nav class="navbar fixed-top navbar-expand-lg" style="background-color: #e3f2fd; border-bottom: solid grey 1px;">
-      <!-- Navbar content -->
-        <div class="container-fluid">
-          <a class="navbar-brand" href="{% url 'review:feeds_page' %}">LITReview</a>
-          {% if user.is_authenticated %}
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-              <ul class="navbar-nav">
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'review:feeds_page' %}"> Feeds </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#"> Posts </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#"> Abo </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'accounts:logout' %}"> Log out </a>
-                </li>
-              </ul>
-            </div>
-          {% endif %}
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar fixed-top navbar-expand-lg" style="background-color: #e3f2fd; border-bottom: solid grey 1px;">
+  <!-- Navbar content -->
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{% url 'review:feeds_page' %}">LITReview</a>
+      {% if user.is_authenticated %}
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'review:feeds_page' %}"> Feeds </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#"> Posts </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#"> Abo </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'accounts:logout' %}"> Log out </a>
+            </li>
+          </ul>
         </div>
-      </nav>
-      <!-- End of Navbar -->
+      {% endif %}
+    </div>
+  </nav>
+  <!-- End of Navbar -->
 
-      <!-- Alert/Messages -->
-      {% include 'messages.html' %}
-      <!-- End of Alert/Messages -->
+  <!-- Alert/Messages -->
+  {% include 'messages.html' %}
+  <!-- End of Alert/Messages -->
 
-      {% block content %}
+  {% block content %}
 
-      {% endblock %}
+  {% endblock %}
 
-      <!-- bootstrap script -->
-      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
-    </body>
-    </html>
+  <!-- bootstrap script -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
+</body>
+</html>

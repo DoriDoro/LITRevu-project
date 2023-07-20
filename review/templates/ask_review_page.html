@@ -2,8 +2,10 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
+<!-- ask review page -->
 <div class="container main mt-4">
   <div class="row">
+    <div class="col-md-2"></div>
     <div class="col-md-7">
       <div class="card border-dark my-3" style="background-color: #e3f2fd;">
         <div class="card-body bg-transparent ">
@@ -13,7 +15,7 @@
               {{form|crispy}}
             <div style="display: flex; justify-content: space-between;">
               <button type="submit" class="btn btn-primary margin-btn"> Save </button>
-              <button type="submit" class="btn btn-secondary margin-btn"> Cancel </button>
+              <a href="{% url 'review:feeds_page' %}" role="button" class="btn btn-secondary margin-btn"> Cancel </a>
             </div>
           </form>
         </div>
@@ -21,4 +23,5 @@
     </div>
   </div>
 </div>
+<!-- End of ask review page -->
 {% endblock %}
