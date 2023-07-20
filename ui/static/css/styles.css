@@ -29,3 +29,11 @@
     padding-right: 10px;
     width: 100%;
 }
+
+.img-border {
+    border-radius: 3px;
+    object-fit: contain;
+    object-position: top;
+}
+
+

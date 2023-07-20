@@ -33,7 +33,7 @@
               <p> posted by <strong>{{ review.ticket.user }}</strong> <small style="float: right;"> {{ review.ticket.time_created }} </small> </p>
               <hr>
               <div style="display: flex;">
-                <img src="{{ media_url }}{{ review.ticket.image }}" alt="{{ review.ticket.title }}" style="border: solid black 1px; border-radius: 3px;">
+                <img src="{{ media_url }}{{ review.ticket.image }}" alt="{{ review.ticket.title }}" class="img-fluid img-border">
                 <div style="margin-left: 30px;">
                   <div style="margin-bottom: 15px;">
                     <h4> {{ review.ticket.title }} </h4>
@@ -61,7 +61,7 @@
           <p> posted by <strong>{{ ticket.user }}</strong> <small style="float: right;"> {{ ticket.time_created }} </small> </p>
           <hr>
           <div style="display: flex;">
-            <img src="{{ media_url }}{{ ticket.image }}" alt="{{ ticket.title }}" style="border: solid black 1px; border-radius: 3px;">
+            <img src="{{ media_url }}{{ ticket.image }}" alt="{{ ticket.title }}" class="img-fluid img-border" >
             <div style="margin-left: 30px;">
               <div style="margin-bottom: 15px;">
                 <h4> {{ ticket.title }} </h4>
