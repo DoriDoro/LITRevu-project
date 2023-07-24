@@ -11,6 +11,10 @@ class User(AbstractUser):
 
 class UserFollows(models.Model):
     """  """
+    class Meta:
+        verbose_name = "UserFollow"
+        verbose_name_plural = "UserFollows"
+
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,

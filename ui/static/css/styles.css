@@ -1,5 +1,6 @@
 
-/*  --  --  */
+/* Styles for all screen sizes */
+/*  -- all pages for the fixed navbar --  */
 /* margin top under navbar */
 .main {
     padding-top: 10px;
@@ -23,17 +24,40 @@
 
 /*  ----  feeds_page ----   */
 /*  -- Feeds headline and buttons  --  */
-.headline_feed {
+.headline-feed {
     display: flex;
     justify-content: flex-end;
     padding-right: 10px;
     width: 100%;
 }
 
-.img-border {
-    border-radius: 3px;
-    object-fit: contain;
-    object-position: top;
+img {
+    width: 250px;
 }
 
+ /* Styles for screens with a maximum width of 768px */
+  @media (max-width: 768px) {
+    img {
+        width: 200px;
+    }
+  }
+
+ /* Styles for screens with a maximum width of 990px */
+  @media (max-width: 990px) {
+    .img-border {
+        border-radius: 3px;
+        object-fit: contain;
+        object-position: top;
+    }
+  }
+
+  /* Styles for screens with a minimum width of 990px */
+  @media (min-width: 990px) {
+    /*  ----  feeds_page ----   */
+    /*  -- Feeds headline and buttons  --  */
+    .img-border {
+        border: solid black 1px;
+        border-radius: 3px;
+    }
+  }
 
