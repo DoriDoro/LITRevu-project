@@ -5,7 +5,9 @@ from .views import (
     ask_review_view,
     create_review_view,
     create_review_for_ticket_view,
+    list_user_view,
 )
+
 app_name = 'review'
 
 urlpatterns = [
@@ -15,5 +17,6 @@ urlpatterns = [
     path('create_review_ticket/<int:pk>/',
          create_review_for_ticket_view,
          name="create_review_ticket"
-    ),
+         ),
+    path('abo/', list_user_view, name='abo'),
 ]

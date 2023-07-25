@@ -1,0 +1,32 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+<!-- abo page -->
+<div class="container main">
+  <h1> Abonnement </h1>
+  <hr>
+  <div class="container justify-content-center">
+    <div>
+      <form class="form-inline">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
+    </div>
+
+    {% for user in list_of_users %}
+    <div class="row justify-content-center">
+      <div class="col-sm-6">
+        <div class="card border-dark my-1 w-80" style="background-color: #e3f2fd;">
+          <div class="card-body">
+            <h5 class="card-title"> {{ user.username }} </h5>
+            <a href="#" class="btn btn-success" style="margin: 5px"> Follow </a>
+            <a href="#" class="btn btn-danger" style="margin: 5px"> Unfollow </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}

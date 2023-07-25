@@ -5,8 +5,10 @@ from django.urls import reverse
 
 from .forms import AskReviewForm, CreateReviewForm
 from .models import Ticket, Review
+from accounts.models import User
 
 
+# feeds page
 # TODO: images are not responsive
 @login_required
 def feeds_page_view(request):
@@ -22,7 +24,7 @@ def feeds_page_view(request):
         'media_url': settings.MEDIA_URL
     }
 
-    return render(request, 'feeds_page.html', context)
+    return render(request, 'feeds/feeds_page.html', context)
 
 
 # TODO create error messages for else
@@ -41,7 +43,7 @@ def ask_review_view(request):
             feeds_page_url = reverse('review:feeds_page')
             return redirect(feeds_page_url)
 
-    return render(request, 'ask_review_page.html', context={'form': form})
+    return render(request, 'feeds/ask_review_page.html', context={'form': form})
 
 
 # TODO create error messages for else
@@ -71,7 +73,7 @@ def create_review_view(request):
 
     context = {'ask_review_form': ask_review_form, 'create_review_form': create_review_form}
 
-    return render(request, 'create_review_page.html', context)
+    return render(request, 'feeds/create_review_page.html', context)
 
 
 @login_required
@@ -100,4 +102,11 @@ def create_review_for_ticket_view(request, pk):
         'media_url': settings.MEDIA_URL
     }
 
-    return render(request, 'create_review_ticket_page.html', context)
+    return render(request, 'feeds/create_review_ticket_page.html', context)
+
+
+# abo page
+def list_user_view(request):
+    list_of_users = User.objects.filter(is_superuser=False, is_staff=False)
+
+    return render(request, 'abo/abo.html', context={'list_of_users': list_of_users})
