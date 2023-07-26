@@ -5,7 +5,7 @@ from django.urls import reverse
 
 from .forms import AskReviewForm, CreateReviewForm
 from .models import Ticket, Review
-from accounts.models import User
+from accounts.models import User, UserFollows
 
 
 # feeds page
@@ -107,6 +107,9 @@ def create_review_for_ticket_view(request, pk):
 
 # abo page
 def list_user_view(request):
-    list_of_users = User.objects.filter(is_superuser=False, is_staff=False)
+    user = User.objects.get(id=request.user.id)
+    all_followed_users = UserFollows.objects.filter(user=user)
 
-    return render(request, 'abo/abo.html', context={'list_of_users': list_of_users})
+    context = {'user': user, 'all_followed_users': all_followed_users}
+
+    return render(request, 'abo/abo.html', context)
