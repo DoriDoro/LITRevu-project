@@ -8,20 +8,34 @@
   <form method="post">
     {% csrf_token %}
     <div class="container justify-content-center">
-    {% for followed_user in all_followed_users %}
       <div class="row justify-content-center">
+
         <div class="col-sm-6">
-          <div class="card border-dark my-1 w-80" style="background-color: #e3f2fd;">
+          <h4> List of Users: </h4>
+          {% for user in users %}
+          <div class="card border-dark my-2" style="background-color: #e3f2fd;">
             <div class="card-body">
-              <h5 class="card-title"> {{ followed_user.followed_user.username }} </h5>
-              <h5 class="card-title"> {{ followed_by }} </h5>
-              <a href="#" class="btn btn-primary" style="margin: 5px"> Follow </a>
-              <a href="#" class="btn btn-secondary" style="margin: 5px"> Unfollow </a>
+              <h5 class="card-title"> {{ user.username }} </h5>
+              <a href="#" class="btn btn-primary" style="margin: 3px"> Follow </a>
+              <a href="#" class="btn btn-secondary" style="margin: 3px"> Unfollow </a>
             </div>
           </div>
+          {% endfor %}
+        </div>
+
+        <div class="col-sm-6">
+          <h4> List of followed Users: </h4>
+          {% for followed_user in followed_users %}
+          <div class="card border-dark my-2" style="background-color: #e3f2fd;">
+            <div class="card-body">
+              <h5 class="card-title"> {{ followed_user.followed_user.username }} </h5>
+              <a href="#" class="btn btn-primary" style="margin: 3px"> Follow </a>
+              <a href="#" class="btn btn-secondary" style="margin: 3px"> Unfollow </a>
+            </div>
+          </div>
+          {% endfor %}
         </div>
       </div>
-    {% endfor %}
     </div>
   </form>
 </div>

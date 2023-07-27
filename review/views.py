@@ -106,10 +106,16 @@ def create_review_for_ticket_view(request, pk):
 
 
 # abo page
+@login_required
 def list_user_view(request):
-    user = User.objects.get(id=request.user.id)
-    all_followed_users = UserFollows.objects.filter(user=user)
+    followed_users = request.user.following.all()
 
-    context = {'user': user, 'all_followed_users': all_followed_users}
+    users = User.objects.filter(
+        is_superuser=False,
+    ).exclude(
+        id__in=request.user.following.values_list('followed_user_id', flat=True)
+    ).exclude(id=request.user.id)
+
+    context = {'users': users, 'followed_users': followed_users}
 
     return render(request, 'abo/abo.html', context)
