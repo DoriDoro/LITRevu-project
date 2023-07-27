@@ -18,13 +18,13 @@ def feeds_page_view(request):
     stars = range(1, 6)
 
     context = {
-        'reviews': reviews,
-        'tickets': tickets,
-        'stars': stars,
-        'media_url': settings.MEDIA_URL
+        "reviews": reviews,
+        "tickets": tickets,
+        "stars": stars,
+        "media_url": settings.MEDIA_URL,
     }
 
-    return render(request, 'feeds/feeds_page.html', context)
+    return render(request, "feeds/feeds_page.html", context)
 
 
 # TODO create error messages for else
@@ -32,7 +32,7 @@ def feeds_page_view(request):
 def ask_review_view(request):
     form = AskReviewForm()
 
-    if request.method == 'POST':
+    if request.method == "POST":
         form = AskReviewForm(request.POST, request.FILES)
 
         if form.is_valid():
@@ -40,10 +40,10 @@ def ask_review_view(request):
             ticket.user = request.user
             form.save()
 
-            feeds_page_url = reverse('review:feeds_page')
+            feeds_page_url = reverse("review:feeds_page")
             return redirect(feeds_page_url)
 
-    return render(request, 'feeds/ask_review_page.html', context={'form': form})
+    return render(request, "feeds/ask_review_page.html", context={"form": form})
 
 
 # TODO create error messages for else
@@ -52,7 +52,7 @@ def create_review_view(request):
     ask_review_form = AskReviewForm()
     create_review_form = CreateReviewForm()
 
-    if request.method == 'POST':
+    if request.method == "POST":
         ask_review_form = AskReviewForm(request.POST, request.FILES)
         create_review_form = CreateReviewForm(request.POST)
 
@@ -68,12 +68,15 @@ def create_review_view(request):
             ask_review_form.save()
             create_review_form.save()
 
-            feeds_page_url = reverse('review:feeds_page')
+            feeds_page_url = reverse("review:feeds_page")
             return redirect(feeds_page_url)
 
-    context = {'ask_review_form': ask_review_form, 'create_review_form': create_review_form}
+    context = {
+        "ask_review_form": ask_review_form,
+        "create_review_form": create_review_form,
+    }
 
-    return render(request, 'feeds/create_review_page.html', context)
+    return render(request, "feeds/create_review_page.html", context)
 
 
 @login_required
@@ -82,7 +85,7 @@ def create_review_for_ticket_view(request, pk):
 
     create_review_ticket_form = CreateReviewForm()
 
-    if request.method == 'POST':
+    if request.method == "POST":
         create_review_ticket_form = CreateReviewForm(request.POST)
 
         if create_review_ticket_form.is_valid():
@@ -93,29 +96,52 @@ def create_review_for_ticket_view(request, pk):
 
             create_review_ticket_form.save()
 
-            feeds_page_url = reverse('review:feeds_page')
+            feeds_page_url = reverse("review:feeds_page")
             return redirect(feeds_page_url)
 
     context = {
-        'get_ticket': get_ticket,
-        'create_review_ticket_form': create_review_ticket_form,
-        'media_url': settings.MEDIA_URL
+        "get_ticket": get_ticket,
+        "create_review_ticket_form": create_review_ticket_form,
+        "media_url": settings.MEDIA_URL,
     }
 
-    return render(request, 'feeds/create_review_ticket_page.html', context)
+    return render(request, "feeds/create_review_ticket_page.html", context)
 
 
 # abo page
 @login_required
 def list_user_view(request):
+    """ """
+    # get data out of database for the context
     followed_users = request.user.following.all()
 
-    users = User.objects.filter(
-        is_superuser=False,
-    ).exclude(
-        id__in=request.user.following.values_list('followed_user_id', flat=True)
-    ).exclude(id=request.user.id)
+    users = (
+        User.objects.filter(
+            is_superuser=False,
+        )
+        .exclude(
+            id__in=request.user.following.values_list("followed_user_id", flat=True)
+        )
+        .exclude(id=request.user.id)
+    )
 
-    context = {'users': users, 'followed_users': followed_users}
+    # create button follow/unfollow logic
+    if request.method == "POST":
+        current_user = User.objects.get(id=request.user.id)
+        if "follow" in request.POST:
+            user_id = request.POST.get("follow")
+            user_to_follow = User.objects.get(id=user_id)
+            UserFollows.objects.create(user=current_user, followed_user=user_to_follow)
 
-    return render(request, 'abo/abo.html', context)
+        elif "unfollow" in request.POST:
+            user_id = request.POST.get("unfollow")
+            user_to_unfollow = User.objects.get(id=user_id)
+            UserFollows.objects.get(
+                user=current_user, followed_user=user_to_unfollow
+            ).delete()
+
+        return redirect("review:abo")
+
+    context = {"users": users, "followed_users": followed_users}
+
+    return render(request, "abo/abo.html", context)

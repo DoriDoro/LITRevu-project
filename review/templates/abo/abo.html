@@ -2,7 +2,7 @@
 
 {% block content %}
 <!-- abo page -->
-<div class="container main">
+<div class="container main" xmlns="http://www.w3.org/1999/html">
   <h1> Abonnement </h1>
   <hr>
   <form method="post">
@@ -16,8 +16,7 @@
           <div class="card border-dark my-2" style="background-color: #e3f2fd;">
             <div class="card-body">
               <h5 class="card-title"> {{ user.username }} </h5>
-              <a href="#" class="btn btn-primary" style="margin: 3px"> Follow </a>
-              <a href="#" class="btn btn-secondary" style="margin: 3px"> Unfollow </a>
+              <button type="submit" class="btn btn-primary" name="follow" value="{{ user.id }}" style="margin: 3px"> Follow </button>
             </div>
           </div>
           {% endfor %}
@@ -29,8 +28,7 @@
           <div class="card border-dark my-2" style="background-color: #e3f2fd;">
             <div class="card-body">
               <h5 class="card-title"> {{ followed_user.followed_user.username }} </h5>
-              <a href="#" class="btn btn-primary" style="margin: 3px"> Follow </a>
-              <a href="#" class="btn btn-secondary" style="margin: 3px"> Unfollow </a>
+              <button type="submit" class="btn btn-warning" name="unfollow" value="{{ followed_user.followed_user.id }}" style="margin: 3px"> Unfollow </button>
             </div>
           </div>
           {% endfor %}
