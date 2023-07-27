@@ -140,8 +140,26 @@ def list_user_view(request):
                 user=current_user, followed_user=user_to_unfollow
             ).delete()
 
-        return redirect("review:abo")
+        return redirect("review:abo_page")
 
     context = {"users": users, "followed_users": followed_users}
 
-    return render(request, "abo/abo.html", context)
+    return render(request, "abo/abo_page.html", context)
+
+
+@login_required
+def posts_page_view(request):
+    current_user = User.objects.get(id=request.user.id)
+    reviews = Review.objects.filter(user=current_user)
+    tickets = Ticket.objects.filter(user=current_user, reviews__isnull=True)
+
+    stars = range(1, 6)
+
+    context = {
+        "reviews": reviews,
+        "tickets": tickets,
+        "stars": stars,
+        "media_url": settings.MEDIA_URL,
+    }
+
+    return render(request, "posts/posts_page.html", context)
