@@ -5,11 +5,11 @@ from django.urls import reverse
 
 from .forms import AskReviewForm, CreateReviewForm
 from .models import Ticket, Review
-from accounts.models import User, UserFollows
+from accounts.models import User
 
 
 # feeds page
-# TODO: images are not responsive
+# TODO: Feeds and buttons fixed top, change the .main
 @login_required
 def feeds_page_view(request):
     reviews = Review.objects.all()
@@ -108,48 +108,9 @@ def create_review_for_ticket_view(request, pk):
     return render(request, "feeds/create_review_ticket_page.html", context)
 
 
-# abo page
-@login_required
-def list_user_view(request):
-    """ """
-    # get data out of database for the context
-    followed_users = request.user.following.all()
-
-    users = (
-        User.objects.filter(
-            is_superuser=False,
-        )
-        .exclude(
-            id__in=request.user.following.values_list("followed_user_id", flat=True)
-        )
-        .exclude(id=request.user.id)
-    )
-
-    # create button follow/unfollow logic
-    if request.method == "POST":
-        current_user = User.objects.get(id=request.user.id)
-        if "follow" in request.POST:
-            user_id = request.POST.get("follow")
-            user_to_follow = User.objects.get(id=user_id)
-            UserFollows.objects.create(user=current_user, followed_user=user_to_follow)
-
-        elif "unfollow" in request.POST:
-            user_id = request.POST.get("unfollow")
-            user_to_unfollow = User.objects.get(id=user_id)
-            UserFollows.objects.get(
-                user=current_user, followed_user=user_to_unfollow
-            ).delete()
-
-        return redirect("review:abo_page")
-
-    context = {"users": users, "followed_users": followed_users}
-
-    return render(request, "abo/abo_page.html", context)
-
-
 @login_required
 def posts_page_view(request):
-    current_user = User.objects.get(id=request.user.id)
+    current_user = request.user
     reviews = Review.objects.filter(user=current_user)
     tickets = Ticket.objects.filter(user=current_user, reviews__isnull=True)
 
