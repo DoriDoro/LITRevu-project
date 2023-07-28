@@ -1,0 +1,19 @@
+{% extends 'abo/abo_page.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<form method="post">
+  {% csrf_token %}
+  <div class="w-80">
+    <h4> List of Users which follows you: </h4>
+    {% for user in followed_by_others %}
+    <div class="card border-dark my-2" style="background-color: #e3f2fd;">
+      <div class="card-body">
+        <h5 class="card-title"> {{ user.user.username }} </h5>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</form>
+
+{% endblock %}

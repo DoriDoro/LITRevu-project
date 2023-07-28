@@ -57,6 +57,7 @@ def abo_page_view(request):
 
     form = AboForm()
     # TODO: if request.user is trying to add an already followed user, error message
+    # TODO: not possible ti follow user itself
     if request.method == "POST":
         form = AboForm(request.POST)
         current_user = User.objects.get(id=request.user.id)
@@ -81,6 +82,7 @@ def abo_page_view(request):
 
     # get data out of database for the context
     followed_users = request.user.following.all()
+    followed_by_others = UserFollows.objects.filter(followed_user=request.user)
 
     users = (
         User.objects.filter(
@@ -92,6 +94,11 @@ def abo_page_view(request):
         .exclude(id=request.user.id)
     )
 
-    context = {"form": form, "users": users, "followed_users": followed_users}
+    context = {
+        "form": form,
+        "users": users,
+        "followed_users": followed_users,
+        "followed_by_others": followed_by_others,
+    }
 
     return render(request, "abo/abo_page.html", context)
