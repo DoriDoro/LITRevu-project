@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 
 from .forms import AskReviewForm, CreateReviewForm
@@ -108,7 +108,7 @@ def create_review_for_ticket_view(request, pk):
 def posts_page_view(request):
     current_user = request.user
     reviews = Review.objects.filter(user=current_user)
-    tickets = Ticket.objects.filter(user=current_user, reviews__isnull=True)
+    tickets = Ticket.objects.filter(user=current_user)
 
     stars = range(1, 6)
 
@@ -120,3 +120,23 @@ def posts_page_view(request):
     }
 
     return render(request, "posts/posts_page.html", context)
+
+
+@login_required
+def posts_modify_view(request, pk):
+    pass
+
+
+@login_required
+def posts_delete_view(request, pk):
+    current_user = request.user
+    ticket = get_object_or_404(Ticket, id=pk)
+
+    if current_user == ticket.user:
+        if request.method == "POST":
+            ticket.delete()
+
+            posts_page_url = reverse("review:posts_page")
+            return redirect(posts_page_url)
+
+    return render(request, "posts/posts_delete_page.html")
