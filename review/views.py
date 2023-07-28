@@ -8,7 +8,6 @@ from .models import Ticket, Review
 
 
 # feeds page
-# TODO: Feeds and buttons fixed top, change the .main
 @login_required
 def feeds_page_view(request):
     reviews = Review.objects.all()
@@ -26,7 +25,6 @@ def feeds_page_view(request):
     return render(request, "feeds/feeds_page.html", context)
 
 
-# TODO create error messages for else
 @login_required
 def ask_review_view(request):
     form = AskReviewForm()
@@ -45,7 +43,6 @@ def ask_review_view(request):
     return render(request, "feeds/ask_review_page.html", context={"form": form})
 
 
-# TODO create error messages for else
 @login_required
 def create_review_view(request):
     ask_review_form = AskReviewForm()

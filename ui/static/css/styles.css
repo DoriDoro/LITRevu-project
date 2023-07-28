@@ -31,8 +31,12 @@
     width: 100%;
 }
 
-img {
-    width: 250px;
+/*  ---- abo_page ----  */
+/*  -- User inout to follow  --  */
+.user-input p {
+    width: 90%;
+    margin-left: 80px;
+    margin-top: -32px;
 }
 
  /* Styles for screens with a maximum width of 768px */

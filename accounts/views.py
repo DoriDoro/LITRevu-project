@@ -56,8 +56,10 @@ def abo_page_view(request):
     """abo page"""
 
     form = AboForm()
+
     # TODO: if request.user is trying to add an already followed user, error message
-    # TODO: not possible ti follow user itself
+    # TODO: not possible to follow user yourself
+    # TODO: exclude the Admin from user choice
     if request.method == "POST":
         form = AboForm(request.POST)
         current_user = User.objects.get(id=request.user.id)
