@@ -20,7 +20,7 @@
           <h4 class="card-subtitle text-center py-2"> Log in: </h4>
           <form method="post">
             {% csrf_token %}
-              {{form|crispy}}
+              {{ form|crispy }}
             <div>
               <button type="submit" class="btn btn-primary margin-btn"> Log in </button>
             </div>

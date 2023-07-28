@@ -1,0 +1,20 @@
+{% extends 'abo/abo_page.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<form method="post">
+  {% csrf_token %}
+  <div class="w-80">
+    <h4> List of followed Users: </h4>
+    {% for followed_user in followed_users %}
+    <div class="card border-dark my-2" style="background-color: #e3f2fd;">
+      <div class="card-body">
+        <h5 class="card-title"> {{ followed_user.followed_user.username }} </h5>
+        <button type="submit" class="btn btn-warning" name="unfollow" value="{{ followed_user.followed_user.id }}" style="margin: 3px"> Unfollow </button>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</form>
+
+{% endblock %}

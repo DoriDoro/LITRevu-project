@@ -1,41 +1,27 @@
 {% extends 'base_layout.html' %}
+{% load crispy_forms_tags %}
 
 {% block content %}
 <!-- abo page -->
 <div class="container main">
   <h3 style="padding-left: 20px;"> My Abonnement </h3>
   <hr>
-  <form method="post">
+  <div class="container justify-content-center">
+    <form method="post">
     {% csrf_token %}
-    <div class="container justify-content-center">
-      <div class="row justify-content-center">
-
-        <div class="col-sm-6">
-          <h4> List of Users: </h4>
-          {% for user in users %}
-          <div class="card border-dark my-2" style="background-color: #e3f2fd;">
-            <div class="card-body">
-              <h5 class="card-title"> {{ user.username }} </h5>
-              <button type="submit" class="btn btn-primary" name="follow" value="{{ user.id }}" style="margin: 3px"> Follow </button>
-            </div>
+      <div class="w-80">
+        <div class="card border-dark my-2" style="background-color: #e3f2fd;">
+          <div class="card-body">
+            <h5 class="card-title"> {{ form|crispy }} </h5>
+            <button type="submit" class="btn btn-primary" name="follow" value="{{ user.id }}" style="margin: 3px"> Follow </button>
           </div>
-          {% endfor %}
-        </div>
-
-        <div class="col-sm-6">
-          <h4> List of followed Users: </h4>
-          {% for followed_user in followed_users %}
-          <div class="card border-dark my-2" style="background-color: #e3f2fd;">
-            <div class="card-body">
-              <h5 class="card-title"> {{ followed_user.followed_user.username }} </h5>
-              <button type="submit" class="btn btn-warning" name="unfollow" value="{{ followed_user.followed_user.id }}" style="margin: 3px"> Unfollow </button>
-            </div>
-          </div>
-          {% endfor %}
         </div>
       </div>
-    </div>
-  </form>
+    </form>
+
+    {% include 'abo/unfollow_page.html' %}
+
+  </div>
 </div>
 <!-- End of abo page -->
 {% endblock %}

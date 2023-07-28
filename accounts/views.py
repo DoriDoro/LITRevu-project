@@ -4,7 +4,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 
-from .forms import SignupForm, LoginForm
+from .forms import SignupForm, LoginForm, AboForm
 from .models import User, UserFollows
 
 
@@ -52,8 +52,33 @@ def logout_page_view(request):
 
 # abo page
 @login_required
-def list_user_view(request):
+def abo_page_view(request):
     """abo page"""
+
+    form = AboForm()
+    # TODO: if request.user is trying to add an already followed user, error message
+    if request.method == "POST":
+        form = AboForm(request.POST)
+        current_user = User.objects.get(id=request.user.id)
+
+        if "follow" in request.POST:
+            if form.is_valid():
+                form.save(commit=False)
+                to_be_followed_user = form.cleaned_data["user"]
+                user_to_follow = User.objects.get(username=to_be_followed_user)
+                UserFollows.objects.create(
+                    user=current_user, followed_user=user_to_follow
+                )
+
+        elif "unfollow" in request.POST:
+            user_id = request.POST.get("unfollow")
+            user_to_unfollow = User.objects.get(id=user_id)
+            UserFollows.objects.get(
+                user=current_user, followed_user=user_to_unfollow
+            ).delete()
+
+        return redirect("accounts:abo_page")
+
     # get data out of database for the context
     followed_users = request.user.following.all()
 
@@ -67,23 +92,6 @@ def list_user_view(request):
         .exclude(id=request.user.id)
     )
 
-    # create button follow/unfollow logic
-    if request.method == "POST":
-        current_user = User.objects.get(id=request.user.id)
-        if "follow" in request.POST:
-            user_id = request.POST.get("follow")
-            user_to_follow = User.objects.get(id=user_id)
-            UserFollows.objects.create(user=current_user, followed_user=user_to_follow)
-
-        elif "unfollow" in request.POST:
-            user_id = request.POST.get("unfollow")
-            user_to_unfollow = User.objects.get(id=user_id)
-            UserFollows.objects.get(
-                user=current_user, followed_user=user_to_unfollow
-            ).delete()
-
-        return redirect("accounts:abo_page")
-
-    context = {"users": users, "followed_users": followed_users}
+    context = {"form": form, "users": users, "followed_users": followed_users}
 
     return render(request, "abo/abo_page.html", context)
