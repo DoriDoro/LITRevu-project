@@ -5,7 +5,6 @@ from django.urls import reverse
 
 from .forms import AskReviewForm, CreateReviewForm
 from .models import Ticket, Review
-from accounts.models import User
 
 
 # feeds page
