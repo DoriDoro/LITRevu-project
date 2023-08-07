@@ -4,24 +4,51 @@
 {% block content %}
 <!-- abo page -->
 <div class="container main">
-  <h3 style="padding-left: 20px;"> My Abonnement </h3>
-  <hr>
-
   <div class="container justify-content-center">
-  <form method="post">
-  {% csrf_token %}
-    <table class="table table-bordered">
-      <tbody>
-        <tr>
-          <td class="user-input"> <button type="submit" class="btn btn-primary btn-sm" name="follow" value="{{ user.id }}" style="margin: 3px"> Follow </button> {{ form.as_p }} </td>
-        </tr>
-      </tbody>
-    </table>
-  </form>
+    <div style="margin-bottom: 30px;">
+      <form method="post">
+      {% csrf_token %}
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <td class="user-input"> <button type="submit" class="btn btn-primary btn-sm" name="follow" value="{{ user.id }}" style="margin: 3px"> Follow </button> {{ form.as_p }} </td>
+          </tr>
+        </tbody>
+      </table>
+      </form>
+    </div>
 
-    {% include 'abo/unfollow_page.html' %}
+    <div style="margin-bottom: 30px;">
+      <form method="post">
+      {% csrf_token %}
+      <h4> {{ request.user }} is following: </h4>
+      {% for followed_user in followed_users %}
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <td> <button type="submit" class="btn btn-warning btn-sm" name="unfollow" value="{{ followed_user.followed_user.id }}" style="margin: 3px"> Unfollow </button> {{ followed_user.followed_user.username }} </td>
+          </tr>
+        </tbody>
+      </table>
+      {% endfor %}
+      </form>
+    </div>
 
-    {% include 'abo/followed_by_page.html' %}
+    <div>
+      <form method="post">
+      {% csrf_token %}
+      <h4> You are being followed by: </h4>
+      {% for user in followed_by_others %}
+        <table class="table table-bordered">
+          <tbody>
+            <tr>
+              <td> {{ user.user.username }} </td>
+            </tr>
+          </tbody>
+        </table>
+      {% endfor %}
+      </form>
+    </div>
 
   </div>
 </div>

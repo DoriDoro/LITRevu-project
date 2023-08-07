@@ -2,6 +2,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
+from django.db import IntegrityError
 from django.shortcuts import redirect, render
 
 from .forms import SignupForm, LoginForm, AboForm
@@ -24,8 +25,6 @@ def signup_page_view(request):
 
 
 def login_page_view(request):
-    form = LoginForm()
-
     if request.method == "POST":
         form = LoginForm(request.POST)
 
@@ -42,6 +41,9 @@ def login_page_view(request):
             else:
                 messages.error(request, "Invalid username or password!")
 
+    else:
+        form = LoginForm()
+
     return render(request, "login/login_page.html", context={"form": form})
 
 
@@ -55,32 +57,38 @@ def logout_page_view(request):
 def abo_page_view(request):
     """abo page"""
 
-    form = AboForm()
-
-    # TODO: if request.user is trying to add an already followed user, error message
-    # TODO: not possible to follow user yourself
-    # TODO: exclude the Admin from user choice
     if request.method == "POST":
-        form = AboForm(request.POST)
-        current_user = User.objects.get(id=request.user.id)
+        form = AboForm(request.POST, user=request.user)
 
         if "follow" in request.POST:
             if form.is_valid():
-                form.save(commit=False)
-                to_be_followed_user = form.cleaned_data["user"]
-                user_to_follow = User.objects.get(username=to_be_followed_user)
-                UserFollows.objects.create(
-                    user=current_user, followed_user=user_to_follow
-                )
+                to_be_followed_user = form.cleaned_data["search"]
+                try:
+                    user_to_follow = User.objects.get(username=to_be_followed_user)
+                    UserFollows.objects.create(
+                        user=request.user, followed_user=user_to_follow
+                    )
+                except User.DoesNotExist:
+                    messages.error(
+                        request, "User does not exist. Please choose another name."
+                    )
+                except IntegrityError:
+                    messages.error(request, "You are already following this User.")
+
+            else:
+                messages.error(request, "Please choose an other name.")
 
         elif "unfollow" in request.POST:
             user_id = request.POST.get("unfollow")
             user_to_unfollow = User.objects.get(id=user_id)
             UserFollows.objects.get(
-                user=current_user, followed_user=user_to_unfollow
+                user=request.user, followed_user=user_to_unfollow
             ).delete()
 
         return redirect("accounts:abo_page")
+
+    else:
+        form = AboForm(user=request.user)
 
     # get data out of database for the context
     followed_users = request.user.following.all()

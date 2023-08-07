@@ -127,6 +127,8 @@ def posts_modify_view(request, pk):
     pass
 
 
+# TODO: NoReverseMatch at /posts/
+# TODO: Reverse for 'posts/posts_delete_page' not found. 'posts/posts_delete_page' is not a valid view function or pattern name.
 @login_required
 def posts_delete_view(request, pk):
     current_user = request.user

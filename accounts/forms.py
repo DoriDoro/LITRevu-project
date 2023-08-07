@@ -1,6 +1,5 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from crispy_forms.helper import FormHelper
 
 from .models import User, UserFollows
 
@@ -16,7 +15,20 @@ class LoginForm(forms.Form):
     password = forms.CharField(max_length=50, widget=forms.PasswordInput)
 
 
-class AboForm(forms.ModelForm):
-    class Meta:
-        model = UserFollows
-        fields = ("user",)
+class AboForm(forms.Form):
+    search = forms.CharField(max_length=50, label=False)
+
+    def __init__(self, *args, user=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.user = user
+
+    def clean_search(self):
+        search = self.cleaned_data["search"]
+
+        if self.user and self.user.username == search:
+            raise forms.ValidationError("You can not follow yourself!")
+
+        if User.objects.filter(username=search, is_superuser=True).exists():
+            raise forms.ValidationError("Please choose an other name to follow!")
+
+        return search
