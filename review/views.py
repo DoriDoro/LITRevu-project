@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
@@ -106,9 +107,9 @@ def create_review_for_ticket_view(request, pk):
 
 @login_required
 def posts_page_view(request):
-    current_user = request.user
-    reviews = Review.objects.filter(user=current_user)
-    tickets = Ticket.objects.filter(user=current_user)
+    """all posts of request.user"""
+    reviews = Review.objects.filter(user=request.user)
+    tickets = Ticket.objects.filter(user=request.user)
 
     stars = range(1, 6)
 
@@ -127,18 +128,18 @@ def posts_modify_view(request, pk):
     pass
 
 
-# TODO: NoReverseMatch at /posts/
-# TODO: Reverse for 'posts/posts_delete_page' not found. 'posts/posts_delete_page' is not a valid view function or pattern name.
 @login_required
 def posts_delete_view(request, pk):
-    current_user = request.user
+    """this view will delete the chosen item: Ticket or Review"""
+
     ticket = get_object_or_404(Ticket, id=pk)
 
-    if current_user == ticket.user:
-        if request.method == "POST":
-            ticket.delete()
+    if request.user == ticket.user:
+        ticket.delete()
 
-            posts_page_url = reverse("review:posts_page")
-            return redirect(posts_page_url)
+        messages.success(request, "This post is successfully deleted.")
 
-    return render(request, "posts/posts_delete_page.html")
+        posts_page_url = reverse("review:posts_page")
+        return redirect(posts_page_url)
+
+    return render(request, "posts/posts_page.html")

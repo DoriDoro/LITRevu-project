@@ -22,6 +22,6 @@ urlpatterns = [
         name="create_review_ticket",
     ),
     path("posts/", posts_page_view, name="posts_page"),
-    path("posts/modify/<int:pk>/", posts_modify_view, name="posts_modify"),
-    path("posts/delete/<int:pk>/", posts_delete_view, name="posts_delete"),
+    path("posts/modify/<int:pk>/", posts_modify_view, name="posts_modify_page"),
+    path("posts/delete/<int:pk>/", posts_delete_view, name="posts_delete_page"),
 ]

@@ -8,45 +8,45 @@
     <div style="margin-bottom: 30px;">
       <form method="post">
       {% csrf_token %}
-      <table class="table table-bordered">
-        <tbody>
-          <tr>
-            <td class="user-input"> <button type="submit" class="btn btn-primary btn-sm" name="follow" value="{{ user.id }}" style="margin: 3px"> Follow </button> {{ form.as_p }} </td>
-          </tr>
-        </tbody>
-      </table>
+        <table class="table table-bordered">
+          <tbody>
+            <tr>
+              <td class="user-input"> <button type="submit" class="btn btn-primary btn-sm" name="follow" value="{{ user.id }}" style="margin: 3px"> Follow </button> {{ form.as_p }} </td>
+            </tr>
+          </tbody>
+        </table>
       </form>
     </div>
 
     <div style="margin-bottom: 30px;">
       <form method="post">
       {% csrf_token %}
-      <h4> {{ request.user }} is following: </h4>
-      {% for followed_user in followed_users %}
-      <table class="table table-bordered">
-        <tbody>
-          <tr>
-            <td> <button type="submit" class="btn btn-warning btn-sm" name="unfollow" value="{{ followed_user.followed_user.id }}" style="margin: 3px"> Unfollow </button> {{ followed_user.followed_user.username }} </td>
-          </tr>
-        </tbody>
-      </table>
-      {% endfor %}
+        <h4> {{ request.user }} is following: </h4>
+        {% for followed_user in followed_users %}
+        <table class="table table-bordered">
+          <tbody>
+            <tr>
+              <td> <button type="submit" class="btn btn-warning btn-sm" name="unfollow" value="{{ followed_user.followed_user.id }}" style="margin: 3px"> Unfollow </button> {{ followed_user.followed_user.username }} </td>
+            </tr>
+          </tbody>
+        </table>
+        {% endfor %}
       </form>
     </div>
 
     <div>
       <form method="post">
       {% csrf_token %}
-      <h4> You are being followed by: </h4>
-      {% for user in followed_by_others %}
-        <table class="table table-bordered">
-          <tbody>
-            <tr>
-              <td> {{ user.user.username }} </td>
-            </tr>
-          </tbody>
-        </table>
-      {% endfor %}
+        <h4> You are being followed by: </h4>
+        {% for user in followed_by_others %}
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <td> {{ user.user.username }} </td>
+              </tr>
+            </tbody>
+          </table>
+        {% endfor %}
       </form>
     </div>
 
