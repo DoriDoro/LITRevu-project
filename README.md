@@ -30,13 +30,16 @@ open terminal
 ## Visualisation of the project:
 1. home page with link to register and login: <br>
 ![login](/README_images/login.png)
+
 2. after register or login, you will be redirected to feeds: <br>
 ![feeds](/README_images/feeds.png)
+
 3. the next tab is: posts, where you find your tickets and reviews <br>
 ![posts](/README_images/posts.png)
+
 4. finally, the abo page, where the follow and unfollow part is happening: <br>
 ![abo](/README_images/abo.png)
 
-if you do not want to register, try:
-username: DoriDoro
+if you do not want to register, try:<br>
+username: DoriDoro <br>
 password: TheFirstPassword1206
