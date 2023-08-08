@@ -19,9 +19,8 @@ open terminal
 2. `cd LITRevu-project`
 3. `python3 -m venv venv`
 4. `. venv/bin/activate` on MacOS and Linux `venv\Scripts\activate` on Windows
-5. `cd litrevu`
-6. `pip install -r requirements.txt`
-7. `python manage.py runserver`
+5. `pip install -r requirements.txt`
+6. `python manage.py runserver`
 
 ### Skills:
 - Using server-side rendering in Django
