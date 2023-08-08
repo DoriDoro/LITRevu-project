@@ -10,7 +10,7 @@ from .models import User, UserFollows
 
 
 def signup_page_view(request):
-    form = SignupForm()
+    """register view"""
 
     if request.method == "POST":
         form = SignupForm(request.POST)
@@ -20,11 +20,15 @@ def signup_page_view(request):
             login(request, user)
 
             return redirect(settings.LOGIN_REDIRECT_URL)
+    else:
+        form = SignupForm()
 
     return render(request, "register/register_page.html", context={"form": form})
 
 
 def login_page_view(request):
+    """login to user interphase"""
+
     if request.method == "POST":
         form = LoginForm(request.POST)
 
@@ -48,6 +52,8 @@ def login_page_view(request):
 
 
 def logout_page_view(request):
+    """logout from user interphase"""
+
     logout(request)
     return redirect("accounts:login")
 
@@ -55,7 +61,7 @@ def logout_page_view(request):
 # abo page
 @login_required
 def abo_page_view(request):
-    """abo page"""
+    """abo page, with follow and unfollow logic, see which users is following request.user"""
 
     if request.method == "POST":
         form = AboForm(request.POST, user=request.user)

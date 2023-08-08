@@ -40,11 +40,9 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-
     "accounts",
     "review",
     "ui",
-
     "crispy_forms",
     "crispy_bootstrap4",
 ]
@@ -66,7 +64,7 @@ ROOT_URLCONF = "litrevu.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, 'templates')],
+        "DIRS": [os.path.join(BASE_DIR, "templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -100,8 +98,8 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
         "OPTIONS": {
-            'min_length': 8,
-        }
+            "min_length": 8,
+        },
     },
     {
         "NAME": "accounts.validators.ContainsLetterValidator",
@@ -124,17 +122,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'ui/static')
-]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "ui/static")]
 STATIC_URL = "static/"
 
 
 # Base url to serve media files
-MEDIA_URL = '/media/'
+MEDIA_URL = "/media/"
 
 # Path where media is stored
-MEDIA_ROOT = os.path.join(BASE_DIR, 'ui/media/')
+MEDIA_ROOT = os.path.join(BASE_DIR, "ui/media/")
 
 
 # Default primary key field type
@@ -144,15 +140,15 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = "accounts.User"
 
-LOGIN_URL = 'accounts:login'
-LOGIN_REDIRECT_URL = 'review:feeds_page'
+LOGIN_URL = "accounts:login"
+LOGIN_REDIRECT_URL = "review:feeds_page"
 
 
 # for django messages framework:
 MESSAGE_TAGS = {
-        messages.DEBUG: 'alert-secondary',
-        messages.INFO: 'alert-info',
-        messages.SUCCESS: 'alert-success',
-        messages.WARNING: 'alert-warning',
-        messages.ERROR: 'alert-danger',
- }
+    messages.DEBUG: "alert-secondary",
+    messages.INFO: "alert-info",
+    messages.SUCCESS: "alert-success",
+    messages.WARNING: "alert-warning",
+    messages.ERROR: "alert-danger",
+}

@@ -4,7 +4,7 @@
 <!-- posts page -->
 <div class="container main">
   <div>
-    <h3 style="padding-left: 20px;"> My Posts </h3>
+    <h3 style="padding-left: 20px;"> {{ request.user }}'s Posts </h3>
     <div class="headline-feed">
       <a class="btn btn-primary m-1" href="{% url 'review:ask_review' %}" role="button"> Ask for a review </a>
       <a class="btn btn-primary m-1" href="{% url 'review:create_review' %}" role="button"> Create a review </a>
@@ -49,7 +49,7 @@
                   </div>
                 </div>
               </div>
-                <a class="btn btn-primary" href="#" role="button" style="margin-top: 20px;"> Modify </a>
+                <a class="btn btn-primary" href="{% url 'review:posts_modify_review_page' pk=review.id %}" role="button" style="margin-top: 20px;"> Modify </a>
                 <a class="btn btn-danger" href="{% url 'review:posts_delete_page' pk=review.ticket.id %}" role="button" style="margin-top: 20px;"> Delete </a>
             </div>
           </div>
@@ -80,7 +80,7 @@
                   </div>
                 </div>
               </div>
-                <a class="btn btn-primary" href="#" role="button" style="margin-top: 20px;"> Modify </a>
+                <a class="btn btn-primary" href="{% url 'review:posts_modify_ticket_page' pk=ticket.id %}" role="button" style="margin-top: 20px;"> Modify </a>
                 <a class="btn btn-danger" href="{% url 'review:posts_delete_page' pk=ticket.id %}" role="button" style="margin-top: 20px;"> Delete </a>
             </div>
           </div>

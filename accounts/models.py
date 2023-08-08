@@ -5,12 +5,14 @@ from django.utils.translation import gettext_lazy as _
 
 
 class User(AbstractUser):
-    """ Create User instance """
+    """create User instance"""
+
     pass
 
 
 class UserFollows(models.Model):
-    """  """
+    """follow and followed by model"""
+
     class Meta:
         verbose_name = "UserFollow"
         verbose_name_plural = "UserFollows"
@@ -18,18 +20,18 @@ class UserFollows(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        related_name='following',
-        verbose_name=_("user")
+        related_name="following",
+        verbose_name=_("user"),
     )
     followed_user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        related_name='followed_by',
-        verbose_name=_("follower")
+        related_name="followed_by",
+        verbose_name=_("follower"),
     )
 
     class Meta:
-        unique_together = ['user', 'followed_user']
+        unique_together = ["user", "followed_user"]
 
     def __str__(self):
         return f"{self.user} - is following: {self.followed_user}"
