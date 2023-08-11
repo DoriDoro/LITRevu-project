@@ -29,7 +29,7 @@
               {% endif %}
             {% endfor %}
           </p>
-          <p> {{ review.body }} </p>
+          <p> {{ review.body|linebreaks }} </p>
           <div class="card border-dark bg-light">
             <div class="card-body">
               <p> posted by <strong>{{ review.ticket.user }}</strong> <small style="float: right;"> {{ review.ticket.time_created }} </small> </p>
@@ -41,7 +41,7 @@
                     <h4> {{ review.ticket.title }} </h4>
                   </div>
                   <div>
-                    <p> {{ review.ticket.description }} </p>
+                    <p> {{ review.ticket.description|linebreaks }} </p>
                   </div>
                 </div>
               </div>
@@ -69,7 +69,7 @@
                 <h4> {{ ticket.title }} </h4>
               </div>
               <div>
-                <p class="card-text"> {{ ticket.description }} </p>
+                <p class="card-text"> {{ ticket.description|linebreaks }} </p>
               </div>
             </div>
           </div>
