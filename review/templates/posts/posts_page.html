@@ -57,9 +57,11 @@
       {% endfor %}
     </form>
 
-    <br>
-    <hr>
-    <br>
+    {% if reviews %}
+      <br>
+      <hr>
+      <br>
+    {% endif %}
 
     <form method="post">
     {% csrf_token %}
