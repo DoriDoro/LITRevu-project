@@ -24,7 +24,6 @@ def feeds_page_view(request):
         "reviews": reviews,
         "tickets": tickets,
         "stars": stars,
-        "media_url": settings.MEDIA_URL,
     }
 
     return render(request, "feeds/feeds_page.html", context)
@@ -109,7 +108,6 @@ def create_review_for_ticket_view(request, pk):
     context = {
         "get_ticket": get_ticket,
         "create_review_ticket_form": create_review_ticket_form,
-        "media_url": settings.MEDIA_URL,
     }
 
     return render(request, "feeds/create_review_ticket_page.html", context)
@@ -128,7 +126,6 @@ def posts_page_view(request):
         "reviews": reviews,
         "tickets": tickets,
         "stars": stars,
-        "media_url": settings.MEDIA_URL,
     }
 
     return render(request, "posts/posts_page.html", context)
@@ -189,7 +186,6 @@ def posts_modify_review_view(request, pk):
     context = {
         "review_form": review_form,
         "instance_review": instance_review,
-        "media_url": settings.MEDIA_URL,
     }
 
     return render(request, "posts/posts_review_modify_page.html", context)
