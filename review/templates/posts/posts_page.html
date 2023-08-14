@@ -1,5 +1,5 @@
 {% extends 'base_layout.html' %}
-{% load static %}
+{% load static stars %}
 
 {% block content %}
 <!-- posts page -->
@@ -23,15 +23,7 @@
               <p> posted by <strong>{{ review.user }}</strong> <small style="float: right;"> {{ review.time_created }} </small> </p>
               <hr>
               <h4> {{ review.headline }} </h4>
-              <p>
-                {% for i in stars %}
-                  {% if i <= review.rating %}
-                    <i class="fa fa-star" style="color: darkblue;"></i>
-                  {% else %}
-                    <i class="fa fa-star" style="color: lightgrey;"></i>
-                  {% endif %}
-                {% endfor %}
-              </p>
+              <p>{{ review.rating|display_stars }}</p>
               <p> {{ review.body|linebreaks }} </p>
               <div class="card border-dark bg-light">
                 <div class="card-body">

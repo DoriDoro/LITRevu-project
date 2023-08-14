@@ -18,12 +18,9 @@ def feeds_page_view(request):
     reviews = Review.objects.all()
     tickets = Ticket.objects.filter(reviews__isnull=True)
 
-    stars = range(1, 6)
-
     context = {
         "reviews": reviews,
         "tickets": tickets,
-        "stars": stars,
     }
 
     return render(request, "feeds/feeds_page.html", context)
@@ -120,12 +117,9 @@ def posts_page_view(request):
     reviews = Review.objects.filter(user=request.user)
     tickets = Ticket.objects.filter(user=request.user)
 
-    stars = range(1, 6)
-
     context = {
         "reviews": reviews,
         "tickets": tickets,
-        "stars": stars,
     }
 
     return render(request, "posts/posts_page.html", context)
