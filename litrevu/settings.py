@@ -16,6 +16,8 @@ from dotenv import load_dotenv
 from django.contrib.messages import constants as messages
 from pathlib import Path
 
+# load the .env file:
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,7 +28,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # to keep the SECRET_KEY secret, saved in .env
-load_dotenv()
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = str(os.getenv("SECRET_KEY"))
 
@@ -90,8 +91,12 @@ WSGI_APPLICATION = "litrevu.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": os.environ.get("DB_NAME"),
+        "USER": os.environ.get("DB_USER"),
+        "PASSWORD": os.environ.get("DB_PASSWORD"),
+        "HOST": os.environ.get("DB_HOST"),
+        "PORT": os.environ.get("DB_PORT"),
     }
 }
 
@@ -129,7 +134,7 @@ USE_TZ = True
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "ui/static")]
 STATIC_URL = "static/"
-STATIC_ROOT = os.path.join(BASE_DIR, "ui/staticfiles")
+STATIC_ROOT = os.path.join(BASE_DIR, "ui/staticfiles", "static")
 
 
 # Base url to serve media files
