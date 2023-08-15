@@ -17,7 +17,7 @@ from django.contrib.messages import constants as messages
 from pathlib import Path
 
 # load the .env file:
-load_dotenv()
+# load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -29,7 +29,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # to keep the SECRET_KEY secret, saved in .env
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = str(os.getenv("SECRET_KEY"))
+SECRET_KEY = "django-insecure-a-mxu25n1g(xm_^*_vx7o2&g)ajrspxo$u!=f=^3$=tm41^i&h"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -93,11 +93,11 @@ WSGI_APPLICATION = "litrevu.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": os.environ.get("DB_NAME"),
-        "USER": os.environ.get("DB_USER"),
-        "PASSWORD": os.environ.get("DB_PASSWORD"),
-        "HOST": os.environ.get("DB_HOST"),
-        "PORT": os.environ.get("DB_PORT"),
+        "NAME": "postgres_database",
+        "USER": "postgres",
+        "PASSWORD": "postgres_password",
+        "HOST": "localhost",
+        "PORT": "5432",
     }
 }
 

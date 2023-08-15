@@ -21,11 +21,23 @@ open terminal
 4. `. venv/bin/activate` on MacOS and Linux `venv\Scripts\activate` on Windows
 5. `pip install -r requirements.txt`
 6. `python manage.py runserver`
+7. create on root directory an `.env` file and add following information:
+```commandline
+SECRET_KEY=
 
+DB_NAME= "postgres_database"
+DB_USER= "postgres"
+DB_PASSWORD= "postgres_password"
+DB_HOST= "localhost"
+DB_PORT= "5432"
+```
 
 ## Deployed on Vercel:
 https://litrevu-project-l840i94ci-doridoro.vercel.app/
 
+
+### created article for deployment on Vercel
+https://dev.to/doridoro/deploy-a-django-app-with-postgresql-database-on-vercel-1965
 
 ### Skills:
 - Using server-side rendering in Django
