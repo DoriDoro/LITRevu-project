@@ -18,6 +18,7 @@
       </form>
     </div>
 
+    {% if followed_users %}
     <div style="margin-bottom: 30px;">
       <form method="post">
       {% csrf_token %}
@@ -33,7 +34,9 @@
         {% endfor %}
       </form>
     </div>
+    {% endif %}
 
+    {% if followed_by_others %}
     <div>
       <form method="post">
       {% csrf_token %}
@@ -49,6 +52,7 @@
         {% endfor %}
       </form>
     </div>
+    {% endif %}
 
   </div>
 </div>

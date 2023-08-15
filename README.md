@@ -25,7 +25,6 @@ open terminal
 ## Deployed on Vercel:
 https://litrevu-project-l840i94ci-doridoro.vercel.app/
 
-
 ### created article for deployment on Vercel
 https://dev.to/doridoro/deploy-a-django-app-with-postgresql-database-on-vercel-1965
 
