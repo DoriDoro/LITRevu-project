@@ -211,7 +211,6 @@ def posts_modify_ticket_view(request, pk):
 @login_required
 def posts_delete_view(request, pk):
     """this view will delete the chosen item: ticket or review with ticket"""
-
     ticket = get_object_or_404(Ticket, id=pk)
 
     if request.user == ticket.user:
