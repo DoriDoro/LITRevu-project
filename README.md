@@ -22,7 +22,9 @@ open terminal
 5. `pip install -r requirements.txt`
 6. `python manage.py runserver`
 
+
 ## Deployed on Vercel:
+not yet working properly
 https://litrevu-project-l840i94ci-doridoro.vercel.app/
 
 ### created article for deployment on Vercel
