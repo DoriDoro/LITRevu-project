@@ -22,6 +22,11 @@ open terminal
 5. `pip install -r requirements.txt`
 6. `python manage.py runserver`
 
+
+## Deployed on Vercel:
+https://litrevu-project-l840i94ci-doridoro.vercel.app/
+
+
 ### Skills:
 - Using server-side rendering in Django
 - Keeping a technology watch

@@ -4,13 +4,13 @@
     {
       "src": "litrevu/wsgi.py",
       "use": "@vercel/python",
-      "config": { "maxLambdaSize": "15mb", "runtime": "python3.10" }
+      "config": { "maxLambdaSize": "15mb", "runtime": "python3.9" }
     },
     {
       "src": "build_files.sh",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "staticfiles"
+        "distDir": "ui/staticfiles"
       }
     }
   ],
@@ -23,5 +23,6 @@
       "src": "/(.*)",
       "dest": "litrevu/wsgi.py"
     }
-  ]
+  ],
+  "outputDirectory": "ui/staticfiles"
 }
