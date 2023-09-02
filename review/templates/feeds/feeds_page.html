@@ -45,9 +45,11 @@
     </div>
     {% endfor %}
 
-    <br>
-    <hr>
-    <br>
+    {% if reviews %}
+      <br>
+      <hr>
+      <br>
+    {% endif %}
 
     {% for ticket in tickets %}
     <div class="container mt-3">

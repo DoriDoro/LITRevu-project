@@ -31,10 +31,12 @@ class AboForm(forms.Form):
     def clean_search(self):
         search = self.cleaned_data["search"]
 
+        # impossible to follow yourself:
         if self.user and self.user.username == search:
             # replaced with messages in view
             raise forms.ValidationError("You can not follow yourself!")
 
+        # impossible to follow an admin/superuser:
         if User.objects.filter(username=search, is_superuser=True).exists():
             # replaced with messages in view
             raise forms.ValidationError("Please choose an other name to follow!")
