@@ -4,8 +4,10 @@
 {% block content %}
 <!-- posts page -->
 <div class="container main">
-  <div>
-    <h3 style="padding-left: 20px;"> {{ request.user }}'s Posts </h3>
+  <div style="display: flex;">
+    <div style="width: -moz-available;">
+      <h3 style="padding-left: 20px;"> {{ request.user }}'s Posts </h3>
+    </div>
     <div class="headline-feed">
       <a class="btn btn-primary m-1" href="{% url 'review:ask_review' %}" role="button"> Ask for a review </a>
       <a class="btn btn-primary m-1" href="{% url 'review:create_review' %}" role="button"> Create a review </a>
