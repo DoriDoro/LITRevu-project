@@ -1,6 +1,6 @@
-from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
 
 from .forms import (
@@ -13,10 +13,12 @@ from .models import Ticket, Review
 # feeds page
 @login_required
 def feeds_page_view(request):
-    """the general feeds page with all reviews and tickets of all users"""
+    """the general feeds page with all reviews and tickets of users which I follow"""
 
-    reviews = Review.objects.all()
-    tickets = Ticket.objects.filter(reviews__isnull=True)
+    reviews = Review.objects.filter(
+        Q(ticket__user__followed_by__user=request.user) | Q(user=request.user)
+    )
+    tickets = Ticket.objects.filter(user__followed_by__user=request.user)
 
     context = {
         "reviews": reviews,

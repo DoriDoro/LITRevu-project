@@ -18,13 +18,13 @@ class UserFollows(models.Model):
         verbose_name_plural = "UserFollows"
 
     user = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
+        "accounts.User",
         on_delete=models.CASCADE,
         related_name="following",
         verbose_name=_("user"),
     )
     followed_user = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
+        "accounts.User",
         on_delete=models.CASCADE,
         related_name="followed_by",
         verbose_name=_("follower"),

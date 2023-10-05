@@ -13,8 +13,9 @@ class Ticket(models.Model):
         max_length=2048, verbose_name=_("description of ticket"), blank=True, null=True
     )
     user = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
+        "accounts.User",
         on_delete=models.CASCADE,
+        related_name="tickets",
         verbose_name=_("creator of ticket"),
     )
     image = models.ImageField(
@@ -40,7 +41,7 @@ class Review(models.Model):
     """A Review has a rating and a ticket."""
 
     ticket = models.ForeignKey(
-        Ticket,
+        "review.Ticket",
         on_delete=models.CASCADE,
         related_name="reviews",
         verbose_name=_("ticket"),
@@ -53,8 +54,9 @@ class Review(models.Model):
     headline = models.CharField(max_length=128, verbose_name=_("title of review"))
     body = models.TextField(verbose_name=_("comment"), blank=True, null=True)
     user = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
+        "accounts.User",
         on_delete=models.CASCADE,
+        related_name="reviews",
         verbose_name=_("author of review"),
     )
     time_created = models.DateTimeField(
