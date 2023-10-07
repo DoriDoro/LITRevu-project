@@ -14,38 +14,30 @@ from .models import Ticket, Review
 # feeds page
 @login_required
 def feeds_page_view(request):
-    """the general feeds page with all reviews of users which I follow and mine
-    and with all tickets of users I am following"""
+    """the general feeds page with all reviews of users which I follow, my reviews
+    and reviews of user how are following me
+    displays all tickets, without any review, of users I am following"""
 
-    # get QuerySet of Reviews and Tickets which I am following, add type_of_content to QuerySet
-    # the Review for my tickets even the author of the Review is not in my following list
-    # TODO: TICKETS and REVIEWS are several times on the page
-    # TODO: Pagination
-    reviews = Review.objects.filter(
-        Q(user=request.user)
-        | Q(user__followed_by__user=request.user)
-        | Q(ticket__user=request.user)
-    ).annotate(type_of_content=Value("REVIEW", CharField()))
-    print("---reviews---", reviews, "----", reviews.count())
-    review_followed = Review.objects.filter(user__followed_by__user=request.user)
-    print("followed------", review_followed, "000", review_followed.count())
-    review_user = Review.objects.filter(user=request.user)
-    print("----user 0000", review_user, "000", review_user.count())
-    review_ticket = Review.objects.filter(ticket__user=request.user)
-    print("review - ticket----", review_ticket, "000", review_ticket.count())
-    reviews_combined = (review_followed | review_user | review_ticket).distinct()
-    print("combination review ----", reviews_combined, "000", reviews_combined.count())
-
-    tickets = Ticket.objects.filter(
-        Q(user__followed_by__user=request.user) | Q(user=request.user)
-    ).annotate(type_of_content=Value("TICKET", CharField()))
-    print("----tickets---", tickets, "--", tickets.count())
+    reviews = (
+        Review.objects.filter(
+            Q(user__followed_by__user=request.user)
+            | Q(user=request.user)
+            | Q(ticket__user=request.user)
+        )
+        .distinct()
+        .annotate(type_of_content=Value("REVIEW", CharField()))
+    )
+    tickets = (
+        Ticket.objects.filter(reviews__isnull=True)
+        .filter(Q(user__followed_by__user=request.user) | Q(user=request.user))
+        .distinct()
+        .annotate(type_of_content=Value("TICKET", CharField()))
+    )
 
     # sort Reviews and Tickets by time_created
     posts = sorted(
         chain(reviews, tickets), key=lambda post: post.time_created, reverse=True
     )
-    print("---sorted rev tick---", posts)
 
     return render(request, "feeds/feeds_page.html", context={"posts": posts})
 
