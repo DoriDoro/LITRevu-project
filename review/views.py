@@ -44,7 +44,8 @@ def feeds_page_view(request):
 
 @login_required
 def ask_review_view(request):
-    """button 'Ask for a review' on feeds and posts page"""
+    """button 'Ask for a review' on feeds and posts page
+    - create a new Ticket which can be reviewed"""
 
     if request.method == "POST":
         form = TicketForm(request.POST, request.FILES)
@@ -64,7 +65,8 @@ def ask_review_view(request):
 
 @login_required
 def create_review_view(request):
-    """button 'Create a review' on feeds and posts page"""
+    """button 'Create a review' on feeds and posts page
+    - creates a Review which includes a new Ticket"""
 
     if request.method == "POST":
         ask_review_form = TicketForm(request.POST, request.FILES)
@@ -98,7 +100,8 @@ def create_review_view(request):
 
 @login_required
 def create_review_for_ticket_view(request, pk):
-    """button 'Create a review' for a Ticket on feeds page"""
+    """button 'Create a review' for a Ticket on feeds page
+    - display the Ticket and creates a Review for this chosen Ticket"""
 
     get_ticket = Ticket.objects.get(pk=pk)
 
@@ -128,7 +131,7 @@ def create_review_for_ticket_view(request, pk):
 
 @login_required
 def posts_page_view(request):
-    """all created tickets/reviews of request.user"""
+    """displays all created tickets/reviews of request.user"""
 
     reviews = Review.objects.filter(user=request.user)
     tickets = Ticket.objects.filter(user=request.user)
@@ -143,7 +146,11 @@ def posts_page_view(request):
 
 @login_required
 def posts_modify_review_view(request, pk):
-    """modify review possible with ticket, if request.user is the creator of the ticket"""
+    """the 'Modify' button on post page for a Review
+    - modify of Review possible with attached Ticket
+    - if request.user is the creator of the Review and Ticket,
+        then Review and Ticket can be modified
+    """
 
     # receive the review data from database:
     instance_review = get_object_or_404(Review, pk=pk)
@@ -202,7 +209,8 @@ def posts_modify_review_view(request, pk):
 
 
 def posts_modify_ticket_view(request, pk):
-    """modify a ticket on posts page"""
+    """the button 'Modify' on posts page for a Ticket
+    - modify a ticket on posts page"""
 
     instance_ticket = get_object_or_404(Ticket, pk=pk)
 
@@ -226,7 +234,8 @@ def posts_modify_ticket_view(request, pk):
 
 @login_required
 def posts_delete_view(request, pk):
-    """this view will delete the chosen item: ticket or review with ticket"""
+    """this view will delete the chosen item: a Ticket or a Review with attached Ticket"""
+
     ticket = get_object_or_404(Ticket, id=pk)
 
     if request.user == ticket.user:

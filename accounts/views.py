@@ -27,7 +27,7 @@ def signup_page_view(request):
 
 
 def login_page_view(request):
-    """login to user interphase"""
+    """login to user interface"""
 
     if request.method == "POST":
         form = LoginForm(request.POST)
@@ -52,7 +52,7 @@ def login_page_view(request):
 
 
 def logout_page_view(request):
-    """logout from user interphase"""
+    """logout from user interface"""
 
     logout(request)
     return redirect("accounts:login")
