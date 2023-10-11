@@ -156,7 +156,10 @@ def posts_modify_review_view(request, pk):
     instance_review = get_object_or_404(Review, pk=pk)
 
     # check if the author of the review is the same creator of the ticket:
-    if request.user == instance_review.ticket.user:
+    if (
+        request.user == instance_review.ticket.user
+        and request.user == instance_review.user
+    ):
         # receive ticket data from review:
         instance_ticket = instance_review.ticket
 
@@ -214,18 +217,21 @@ def posts_modify_ticket_view(request, pk):
 
     instance_ticket = get_object_or_404(Ticket, pk=pk)
 
-    if request.method == "POST":
-        ticket_form = TicketForm(request.POST, request.FILES, instance=instance_ticket)
+    if request.user == instance_ticket.user:
+        if request.method == "POST":
+            ticket_form = TicketForm(
+                request.POST, request.FILES, instance=instance_ticket
+            )
 
-        if ticket_form.is_valid():
-            ticket_form.save()
+            if ticket_form.is_valid():
+                ticket_form.save()
 
-            messages.success(request, "Your ticket was modified with success!")
+                messages.success(request, "Your ticket was modified with success!")
 
-            return redirect("review:posts_page")
+                return redirect("review:posts_page")
 
-    else:
-        ticket_form = TicketForm(instance=instance_ticket)
+        else:
+            ticket_form = TicketForm(instance=instance_ticket)
 
     context = {"ticket_form": ticket_form}
 

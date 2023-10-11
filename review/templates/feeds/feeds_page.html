@@ -14,7 +14,6 @@
     </div>
   </div>
   <hr>
-
   <div class="container justify-content-center">
   {% for post in posts %}
     {% if post.type_of_content == 'REVIEW' %}
@@ -23,7 +22,6 @@
       {% include 'feeds/ticket_page.html' %}
     {% endif %}
   {% endfor %}
-
   </div>
 </div>
 <!-- End of feeds page -->
